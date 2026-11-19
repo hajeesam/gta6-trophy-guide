@@ -190,7 +190,7 @@ function renderDetail() {
     <p class="label">GUIDE — IN OUR OWN WORDS</p>
     <p>${escapeHtml(t.guide)}</p>
     <p class="label">HOW TO GET IT — STEP BY STEP</p>
-    <ol class="steps">${t.steps.map((s) => `<li>${escapeHtml(s)}</li>`).join('')}</ol>`}
+    <ol class="steps">${t.steps.map((s) => `<li>${escapeHtml(s).replace(/\[(\d+)\]/g, '<span class="cite">[$1]</span>')}</li>`).join('')}</ol>`}
     ${t.missable && !hidden ? `<div class="missable-box"><b>MISSABLE?</b> Possibly. The balcony meditation in Chapter 1 is gone after that chapter, and it is unconfirmed whether “every spot” includes it. Do it, and keep a Chapter 1 save until this pops. <span class="cite">[1][2][3][6]</span></div>` : ''}
     ${count && !hidden ? `<div class="counter"><button type="button" data-count="-1" aria-label="Count down">−</button><span><b>${have} / ${count}</b> ${countLabel(t)}</span><button type="button" data-count="1" aria-label="Count up">+</button>${have >= count ? '<span>Target reached — mark it earned.</span>' : ''}</div>` : ''}
     <button type="button" class="mark-btn ${done ? 'earned' : ''}" id="markEarned">${done ? '✓ Earned — tap to unmark' : 'Mark earned'}</button>
