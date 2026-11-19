@@ -3,23 +3,129 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GTA VI trophy checklist</title>
+<title>Leonida Ledger — GTA 6 Trophy Guide &amp; Tracker</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h1>GTA VI trophy checklist</h1>
-  <p id="progress">0 of 55 earned</p>
+<header class="masthead">
+  <div>
+    <p class="kicker">GRAND THEFT AUTO VI &middot; PLAYSTATION 5 &middot; UNOFFICIAL FAN GUIDE</p>
+    <h1>LEONIDA LEDGER</h1>
+    <p class="subtitle">GTA 6 Trophy Guide &amp; Tracker — every one of the 55 trophies, in your own words, with dated sources.</p>
+  </div>
+  <div class="progress-box" id="progressBox">
+    <p class="big-progress"><span id="earnedCount">0</span><span class="muted"> / 55 earned</span></p>
+    <div class="bar"><div id="progressBar"></div></div>
+    <p class="grade-counts" id="gradeCounts">P 0/1 &middot; G 0/2 &middot; S 0/6 &middot; B 0/46</p>
+    <p class="muted small">Progress is saved in this browser. Export it to keep a backup.</p>
+  </div>
 </header>
-<div class="controls">
-  <label>Grade <select id="grade"><option value="all">All</option><option value="platinum">Platinum</option><option value="gold">Gold</option><option value="silver">Silver</option><option value="bronze">Bronze</option></select></label>
-  <button id="export" type="button">Export progress</button>
-  <label class="import">Import progress <input id="import" type="file" accept="application/json"></label>
-</div>
-<table>
-  <thead><tr><th>Earned</th><th>Trophy</th><th>Grade</th><th>How to get it</th></tr></thead>
-  <tbody id="rows"></tbody>
-</table>
+
+<section class="audit" id="auditStrip" aria-label="Audit summary">
+  <span><b>AUDIT</b></span>
+  <span>55 official trophies</span>
+  <span>1 platinum &middot; 2 gold &middot; 6 silver &middot; 46 bronze</span>
+  <span>28 hidden on PSN</span>
+  <span>55/55 guides cite a source</span>
+  <span>12 sources read 18&ndash;19 Nov 2026</span>
+  <span>1 possibly missable</span>
+  <span>0 online trophies — all single-player</span>
+  <span>~200 hours to Platinum</span>
+</section>
+
+<section class="watch" id="missableWatch">
+  <b>&#9888; MISSABLE WATCH</b>
+  <span><b>Positive Mental Attitude</b> — Lucia&rsquo;s balcony meditation in Chapter 1 (the morning after <i>Down to Earth</i>) is gone after that chapter. Do it, and keep a Chapter 1 save until the trophy pops. There is no mission replay.</span>
+  <button type="button" id="watchShow">Show it</button>
+</section>
+
+<nav class="tabs" aria-label="Sections">
+  <button type="button" data-tab="checklist" class="active">Checklist</button>
+  <button type="button" data-tab="roadmap">Roadmap to Platinum</button>
+  <button type="button" data-tab="sources">Sources &amp; notes</button>
+  <span class="tab-spacer"></span>
+  <button type="button" id="spoilerToggle" aria-pressed="false">Spoilers: shown</button>
+  <button type="button" id="exportBtn">Export</button>
+  <label class="import-btn">Import <input id="importFile" type="file" accept="application/json,.json"></label>
+</nav>
+
+<main>
+<section id="tab-checklist">
+  <div class="filters" id="filterBar" role="group" aria-label="Filter trophies">
+    <button type="button" data-filter="all" class="active">All 55</button>
+    <button type="button" data-filter="story">Story 12</button>
+    <button type="button" data-filter="missable">Missable 1</button>
+    <button type="button" data-filter="collectible">Collectibles 7</button>
+    <button type="button" data-filter="activity">Activities 9</button>
+    <button type="button" data-filter="side">Side chains 7</button>
+    <button type="button" data-filter="crime">Crime 9</button>
+    <button type="button" data-filter="money">Money 4</button>
+    <button type="button" data-filter="online">Online 0</button>
+  </div>
+  <div class="tools">
+    <input id="searchBox" type="search" placeholder="Search trophies…  ( / )" aria-label="Search trophies">
+    <label>Grade
+      <select id="gradeSelect">
+        <option value="all">All grades</option>
+        <option value="platinum">Platinum</option>
+        <option value="gold">Gold</option>
+        <option value="silver">Silver</option>
+        <option value="bronze">Bronze</option>
+      </select>
+    </label>
+    <label>Status
+      <select id="statusSelect">
+        <option value="all">Earned + to do</option>
+        <option value="todo">To do only</option>
+        <option value="earned">Earned only</option>
+      </select>
+    </label>
+    <span id="shownCount" class="muted">55 shown</span>
+  </div>
+
+  <div class="layout">
+    <div class="list-col">
+      <p class="next-up" id="nextUp"></p>
+      <ul id="trophyList" class="trophy-list"></ul>
+    </div>
+    <aside class="detail" id="detailPanel" aria-live="polite"></aside>
+  </div>
+</section>
+
+<section id="tab-roadmap" hidden>
+  <h2>Roadmap to Platinum</h2>
+  <p class="lede">One playthrough is enough. Play the story first, do the one missable thing in Chapter 1, finish the side strands, then clean up free roam — and save the 100% checklist for last. No online trophies exist, and cheats disable trophies (and the save), so keep cheats off for the whole run.</p>
+  <ol id="roadmapStages" class="roadmap"></ol>
+  <h3>Save plan — no mission replay</h3>
+  <p>GTA 6 has no mission replay and no New Game Plus. Make a manual save at the start of every chapter, one more before the final mission, and keep the Chapter 1 save until Positive Mental Attitude pops. <span class="cite">[2]</span></p>
+  <h3>The 100% checklist (A Long Road)</h3>
+  <p>The checklist has 35 tasks and only appears after the story, under Progress &gt; Stats &gt; 100% Completion. Anything done during the story still counts. Big counts: 300 of 397 stunts, 15 of 18 meditation spots, 15 of 18 card sets, 200 of 277 vehicles, 70 of 80 challenges. <span class="cite">[6]</span></p>
+</section>
+
+<section id="tab-sources" hidden>
+  <h2>Sources &amp; notes</h2>
+  <p class="lede">Every guide in this ledger is written in our own words. Each fact cites one of the sources below by number, beside the step that uses it. Trophy names, descriptions and grades are shown exactly as PlayStation publishes them (as listed by Exophase and PSNProfiles, who agree on all 55). Sources were read 18&ndash;19 Nov 2026, around the game&rsquo;s launch.</p>
+  <ol id="sourceList" class="sources"></ol>
+  <h3>Where sources disagree</h3>
+  <ul>
+    <li><b>Meditation count:</b> PowerPyx and GTABase count 18 spots for Positive Mental Attitude; the 100% checklist asks for only 15 of 18. We show both numbers and advise doing all 18. <span class="cite">[1][6]</span></li>
+    <li><b>Missable or not:</b> PowerPyx flags Positive Mental Attitude as possibly missable; Push Square lists no known missables. Whether the Chapter 1 balcony meditation is strictly required is unconfirmed — do it anyway. <span class="cite">[1][7]</span></li>
+    <li><b>Platinum time:</b> PowerPyx estimates ~200 hours (difficulty 4/10); Push Square estimates ~250 hours. <span class="cite">[1][7]</span></li>
+  </ul>
+  <h3>What is not in this guide</h3>
+  <ul>
+    <li>No online trophies: all 55 are single-player. <span class="cite">[2][10]</span></li>
+    <li>No Rockstar logo, artwork, box art or game screenshots are used anywhere in this guide. The look is our own.</li>
+    <li>Hidden trophies: 28 of 55 are hidden on PSN until earned — 12 story, 6 character-quest, 8 one-off secrets, plus Catch Me If You Can and Challenging Tank. <span class="cite">[10]</span></li>
+  </ul>
+</section>
+</main>
+
+<footer>
+  <p>Unofficial fan guide. Not affiliated with Rockstar Games, Take-Two Interactive or Sony Interactive Entertainment. Trophy names, descriptions and grades are PlayStation&rsquo;s; all guide text is our own wording. Sources are cited, never copied.</p>
+  <p class="muted small">Leonida Ledger &middot; data read 18&ndash;19 Nov 2026 &middot; shareable views: #filter=missable, #filter=story, #spoiler=on, #select=28</p>
+</footer>
+
 <script type="module" src="app.js"></script>
 </body>
 </html>

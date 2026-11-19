@@ -1,5 +1,1 @@
-[
-  { "file": "1-checklist.jpg", "path": "/", "viewport": { "width": 1280, "height": 800 } },
-  { "file": "2-silver.jpg", "path": "/", "grade": "silver", "viewport": { "width": 1280, "height": 800 } },
-  { "file": "3-bronze.jpg", "path": "/", "grade": "bronze", "scroll": 1400, "viewport": { "width": 1280, "height": 800 } }
-]
+[{"file":"1-cover.jpg","note":"Cover: checklist with filters, progress, audit strip, missable watch and the Positive Mental Attitude guide open beside it","path":"/#filter=all&spoiler=off&select=28&tab=checklist","viewport":{"height":800,"width":1280}},{"file":"2-guide.jpg","note":"One trophy's guide with dated sources: Cunning Stunts, 250 of 397 stunts, counter 250/250","path":"/#filter=all&spoiler=off&select=15&tab=checklist","viewport":{"height":800,"width":1280}},{"file":"3-spoiler.jpg","note":"Spoiler setting on: story trophy names and descriptions hidden until earned","path":"/#filter=story&spoiler=on&select=3&tab=checklist","viewport":{"height":800,"width":1280}},{"file":"4-roadmap.jpg","note":"Platinum roadmap: all 55 trophies in earn order across 8 stages","path":"/#filter=all&spoiler=off&tab=roadmap","viewport":{"height":800,"width":1280}}]
