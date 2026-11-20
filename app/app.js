@@ -8,6 +8,29 @@ const EARNED_KEY = 'leonida-ledger-earned-v1';
 const COUNTS_KEY = 'leonida-ledger-counts-v1';
 const SPOILER_KEY = 'leonida-ledger-spoilers-v1';
 
+// Deterministic demo progress for the cover screenshot and for showing the
+// tracker at work: #demo=1 seeds a fresh browser with 11 early-game
+// trophies earned. Ids are trophy ids from data/trophies.json (never guessed
+// names); counts are each trophy's full target. Real saved progress is never
+// overwritten — the seed only runs on an empty tracker.
+const DEMO_EARNED_IDS = [2, 3, 4, 5, 8, 16, 18, 19, 20, 21, 28];
+const DEMO_COUNTS = { 16: 9, 18: 14, 19: 20, 28: 18 };
+let demoSeedActive = false;
+
+function applyDemoSeed() {
+  const hash = new URLSearchParams(location.hash.slice(1));
+  if (hash.get('demo') !== '1') return;
+  if (earned.size > 0 || Object.keys(counts).length > 0) return;
+  const byId = new Map(trophies.map((t) => [t.id, t]));
+  for (const id of DEMO_EARNED_IDS) {
+    const t = byId.get(id);
+    if (t) earned.add(t.name);
+  }
+  counts = { ...DEMO_COUNTS };
+  saveEarned(); saveCounts();
+  demoSeedActive = true;
+}
+
 // Numbered sources, in the order the guides cite them. Names and dates are
 // shown beside every guide; links only where the address was verified.
 const SOURCES = [
@@ -99,6 +122,11 @@ function renderProgress() {
   const totalGrade = (g) => trophies.filter((t) => t.grade === g).length;
   $('gradeCounts').textContent =
     `P ${byGrade('platinum')}/${totalGrade('platinum')} · G ${byGrade('gold')}/${totalGrade('gold')} · S ${byGrade('silver')}/${totalGrade('silver')} · B ${byGrade('bronze')}/${totalGrade('bronze')}`;
+  const demoNote = $('demoNote');
+  if (demoNote) {
+    demoNote.hidden = !demoSeedActive;
+    if (demoSeedActive) demoNote.textContent = 'Demo progress — 11 trophies marked earned to show the tracker.';
+  }
   const next = nextUpTrophy();
   $('nextUp').innerHTML = next
     ? `<b>NEXT UP —</b> ${escapeHtml(next.name)}: ${escapeHtml(next.description)} <button type="button" data-show="${next.id}">Open guide</button>`
@@ -183,6 +211,7 @@ function renderDetail() {
     <p class="label">TROPHY #${t.id} OF 55 &middot; ${t.hidden ? 'HIDDEN ON PSN' : 'VISIBLE ON PSN'}</p>
     <h2>${hidden ? 'Story trophy — hidden until earned' : escapeHtml(t.name)}</h2>
     <p>${gradeBadge(t)} ${t.missable ? '<span class="flag">⚠ POSSIBLY MISSABLE</span>' : ''}</p>
+    ${count && !hidden ? `<div class="counter"><button type="button" data-count="-1" aria-label="Count down">−</button><span><b>${have} / ${count}</b> ${countLabel(t)}</span><button type="button" data-count="1" aria-label="Count up">+</button>${have >= count ? '<span>Target reached — mark it earned.</span>' : ''}</div>` : ''}
     ${hidden
       ? `<p class="spoiler-hidden">Spoiler setting is on. This story trophy's name and description stay hidden until you earn it.</p>
          <button type="button" class="mark-btn" data-reveal-detail="${t.id}">Reveal this trophy</button>`
@@ -192,7 +221,6 @@ function renderDetail() {
     <p class="label">HOW TO GET IT — STEP BY STEP</p>
     <ol class="steps">${t.steps.map((s) => `<li>${escapeHtml(s).replace(/\[(\d+)\]/g, '<span class="cite">[$1]</span>')}</li>`).join('')}</ol>`}
     ${t.missable && !hidden ? `<div class="missable-box"><b>MISSABLE?</b> Possibly. The balcony meditation in Chapter 1 is gone after that chapter, and it is unconfirmed whether “every spot” includes it. Do it, and keep a Chapter 1 save until this pops. <span class="cite">[1][2][3][6]</span></div>` : ''}
-    ${count && !hidden ? `<div class="counter"><button type="button" data-count="-1" aria-label="Count down">−</button><span><b>${have} / ${count}</b> ${countLabel(t)}</span><button type="button" data-count="1" aria-label="Count up">+</button>${have >= count ? '<span>Target reached — mark it earned.</span>' : ''}</div>` : ''}
     <button type="button" class="mark-btn ${done ? 'earned' : ''}" id="markEarned">${done ? '✓ Earned — tap to unmark' : 'Mark earned'}</button>
     <p class="src-line"><span class="label">SOURCES</span><br>${sourceLine(t.sources)}</p>
     <p class="src-line">Guide text is our own wording, written for this ledger. Sources read 18–19 Nov 2026. Trophy #${t.id} of 55 — unofficial fan guide.</p>`;
@@ -362,6 +390,7 @@ function bindControls() {
 
 loadState();
 await loadTrophies();
+applyDemoSeed();
 applyHash();
 bindControls();
 renderSources();

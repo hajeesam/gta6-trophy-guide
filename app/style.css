@@ -22,6 +22,7 @@ h3 { font-size: 17px; color: #123524; margin: 20px 0 4px; }
 .bar { height: 12px; background: #ddd5c2; border-radius: 6px; overflow: hidden; margin: 6px 0; }
 .bar > div { height: 100%; background: #1e7a46; width: 0%; }
 .grade-counts { margin: 2px 0; font-size: 14px; font-weight: 700; }
+.demo-note { margin: 2px 0; font-size: 12px; font-style: italic; color: #8a6d1b; font-family: 'Segoe UI', Arial, sans-serif; }
 
 .audit {
   display: flex; flex-wrap: wrap; gap: 6px 14px;
